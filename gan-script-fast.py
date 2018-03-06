@@ -139,6 +139,7 @@ g_trainer = tf.train.AdamOptimizer(0.0001).minimize(g_loss, var_list=g_vars)
 tf.get_variable_scope().reuse_variables()
 
 sess = tf.Session()
+saver = tf.train.Saver()
 
 # Send summary statistics to TensorBoard
 tf.summary.scalar('Generator_loss', g_loss)
@@ -174,3 +175,5 @@ for i in range(100000):
         # Update TensorBoard with summary statistics
         summary = sess.run(merged, {x_placeholder: real_image_batch})
         writer.add_summary(summary, i)
+
+saver.save(sess, "model/ckpt")           
